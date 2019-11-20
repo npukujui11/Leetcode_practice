@@ -6,7 +6,7 @@
 
 // @lc code=start
 
-/*
+/*方法一
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
