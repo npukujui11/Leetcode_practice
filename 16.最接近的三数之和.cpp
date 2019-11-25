@@ -30,19 +30,23 @@ public:
 
                 if(sum < target){
                     start++;
-                    //去除重复遍历，可以显著节约时间
+                    //去除重复遍历，可以显著节约时间，此处是去除start指针的重复
                     while(start < end && nums[start] == nums[start-1]){
                         start++;
                     }
                 }else if(sum > target){
                     end--;
-                    
+                    //去除end指针的重复
                     while(start > end && nums[end] == nums[end+1]){
                         end--;
                     }
                 }else{
                     return ans;
                 }
+            }
+            //去除nums[i]的重复
+            while(start > end && nums[i] == nums[i-1]){
+                i++;
             }
         }
         return ans;
