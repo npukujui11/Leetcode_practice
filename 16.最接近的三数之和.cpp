@@ -30,8 +30,16 @@ public:
 
                 if(sum < target){
                     start++;
+                    //去除重复遍历，可以显著节约时间
+                    while(start < end && nums[start] == nums[start-1]){
+                        start++;
+                    }
                 }else if(sum > target){
                     end--;
+                    
+                    while(start > end && nums[end] == nums[end+1]){
+                        end--;
+                    }
                 }else{
                     return ans;
                 }
