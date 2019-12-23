@@ -23,9 +23,6 @@ public:
                 !s.empty() && 
                 (s[0] == p[0] || p[0] =='.') &&
                 isMatch(s.substr(1), p.substr(1));
-        
-        
-
     }
 };
 // @lc code=end
