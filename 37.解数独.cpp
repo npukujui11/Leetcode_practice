@@ -5,44 +5,56 @@
  */
 
 // @lc code=start
-#include<vector>
+#include <vector>
+
 class Solution {
 public:
-    int N = 9;
-
-    vector<vector<int>> rows;//用于存储每行可用的数字
-    vector<vector<int>> cols;//用于存储每列可用的数字
-    vector<vector<int>> block;//用于存储每宫格中可用的数字
-
-    void update(vector<vector<char>>& board){//用于放置数字，并更新每行列宫格可用的数字
-
-    }
-
-    bool isPlace(int nums, int row, int col){//用于检查数字是否可以放到这个位置
-
-    }
-
-    void backtrack(int row, int col){
-        if(row == 8 && col == 8){
-            return;
-        }
-
-        if(board[row][col] == '.'){
-            for(int i = 1; i < 10; i++){
-                if(isPlace(i, row, col))
-            }
-        }
-    }
-
     void solveSudoku(vector<vector<char>>& board) {
-        for(int row = 0; row < N; row++){
-            for(int col = 0; col < N; col++){
-                char nums = board[row][col];
-                if(nums == "."){
-                    placeNumber(nums, )
+        solvesudokuDFS(board, 0, 0);     
+    }
+
+    bool solvesudokuDFS(vector<vector<char> >&board, int i, int j)//回溯（深度优先遍历策略）
+    {
+        if(i == 9) //遍历到第9行
+            return true;
+        if(j >= 9) 
+            return solvesudokuDFS(board, i + 1, 0);
+        if(board[i][j] == '.')
+        {
+            for(int k = 1; k <= 9; ++k)
+            {
+                board[i][j] = (char)k+'0';
+                if(isvalid(board, i, j)) 
+                {
+                    if(solvesudokuDFS(board, i, j + 1)) 
+                        return true;
                 }
+                board[i][j]='.';
             }
         }
+        else
+        {
+            return solvesudokuDFS(board, i, j+1);
+        }
+        return false;
+    }
+
+    bool isvalid(vector<vector<char> >&board, int i, int j) //判断数字放在相应位置是否合法
+    {
+        for(int col=0;col<9;++col)
+        {
+            if(col!=j&&board[i][j]==board[i][col]) return false;
+        }
+        for(int row=0;row<9;++row)
+        {
+            if(row!=i&&board[i][j]==board[row][j]) return false;
+        }
+        for(int l=i/3*3;l<i/3*3+3;++l)
+            for(int m=j/3*3;m<j/3*3+3;++m)
+            {
+                if(l!=i&&m!=j&&board[i][j]==board[l][m]) return false;
+            }
+        return true;
     }
 };
 // @lc code=end
