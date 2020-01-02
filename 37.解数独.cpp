@@ -10,50 +10,55 @@
 class Solution {
 public:
     void solveSudoku(vector<vector<char>>& board) {
-        solvesudokuDFS(board, 0, 0);     
+        solvesudokuDFS(board);     
     }
 
-    bool solvesudokuDFS(vector<vector<char> >&board, int i, int j)//回溯（深度优先遍历策略）
-    {
-        if(i == 9) //遍历到第9行
-            return true;
-        if(j >= 9) 
-            return solvesudokuDFS(board, i + 1, 0);
-        if(board[i][j] == '.')
-        {
-            for(int k = 1; k <= 9; ++k)
-            {
-                board[i][j] = (char)k+'0';
-                if(isvalid(board, i, j)) 
-                {
-                    if(solvesudokuDFS(board, i, j + 1)) 
-                        return true;
+private:
+    bool solvesudokuDFS(vector<vector<char> >&board){
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 9; j++){
+                if(board[i][j] == '.'){
+                    char flag = '1';
+                    while(flag <= '9'){
+                        if(isvalid(i, j, board, flag)){
+                            board[i][j] = flag;
+                            if (solvesudokuDFS(board)){
+                                return true;
+                            }else{
+                                board[i][j] = '.';
+                            }
+                        } 
+                        flag++;
+                    }
+                    return false;
                 }
-                board[i][j]='.';
             }
         }
-        else
-        {
-            return solvesudokuDFS(board, i, j+1);
-        }
-        return false;
+        return true;
     }
 
-    bool isvalid(vector<vector<char> >&board, int i, int j) //判断数字放在相应位置是否合法
-    {
-        for(int col=0;col<9;++col)
-        {
-            if(col!=j&&board[i][j]==board[i][col]) return false;
-        }
-        for(int row=0;row<9;++row)
-        {
-            if(row!=i&&board[i][j]==board[row][j]) return false;
-        }
-        for(int l=i/3*3;l<i/3*3+3;++l)
-            for(int m=j/3*3;m<j/3*3+3;++m)
-            {
-                if(l!=i&&m!=j&&board[i][j]==board[l][m]) return false;
+    bool isvalid(int row, int col, vector<vector<char> >&board, char c){
+        for(int i = 0; i < 9; i++){
+            if(board[row][i] == c){
+                return false;
             }
+        }
+
+        for(int i = 0; i < 9; i++){
+            if(board[i][col] == c){
+                return false;
+            }
+        }
+
+        int start_row = row / 3 * 3;//3*3宫格的起始位置
+        int start_col = col / 3 * 3;
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(board[start_row + i][start_col + j] == c){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 };
