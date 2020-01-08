@@ -25,18 +25,15 @@ private:
         }
 
         for(int i = 0; i < nums.size(); i++){
-            
-            int it = find(track.begin(), track.end(),nums[i]);
-            if(it != track.end())
+            //判断track中nums[i]是否已经存在
+            if(find(track.begin(), track.end(), nums[i]) != track.end())
                 continue;
             track.push_back(nums[i]);
-
             //进入递归
-            backtracking(nums, track, ans);
+            backtracking(nums, track, res);
             //清理现场
-            track.pop_back(nums[i]);
+            track.pop_back();
         }
-
     }
 };
 // @lc code=end
