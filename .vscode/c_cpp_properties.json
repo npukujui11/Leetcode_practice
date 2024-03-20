@@ -10,7 +10,11 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "intelliSenseMode": "msvc-x64"
+            "windowsSdkVersion": "10.0.17763.0",
+            "compilerPath": "D:\\Soft\\mingw64\\bin\\g++.exe", /*bin目录下的g++.exe，两个反斜杠\\*/
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "${default}"
         }
     ],
     "version": 4
